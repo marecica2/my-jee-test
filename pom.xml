@@ -67,8 +67,16 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.1.1</version>
-    </dependency>    
+    </dependency>   
     
+    
+    <!-- Spring MVC -->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>     
+	    
   </dependencies>
 
   <build>
