@@ -7,10 +7,13 @@
   <packaging>war</packaging>
 
   <properties>
-    <spring.version>4.1.4</spring.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.1.6.RELEASE</spring.version>
     <spring.security.version>4.0.1.RELEASE</spring.security.version>
     <jersey.version>2.21</jersey.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <org.hibernate.javax.persistence.jpa.2.version>1.0.0.Final</org.hibernate.javax.persistence.jpa.2.version>
+    <org.hibernate.version>4.3.6.Final</org.hibernate.version>  
+    <org.apache.commons.dbcp.version>1.4</org.apache.commons.dbcp.version>
   </properties>
 
   <dependencies>
@@ -29,23 +32,66 @@
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>${jersey.version}</version>
     </dependency>
+    
+    
+    <!-- Db -->
+    <dependency>
+        <groupId>org.hibernate.javax.persistence</groupId>
+        <artifactId>hibernate-jpa-2.1-api</artifactId>
+        <version>${org.hibernate.javax.persistence.jpa.2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.1.0.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${org.hibernate.version}</version>
+    </dependency>    
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.1.3.Final</version>
+    </dependency>   
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.3-1100-jdbc41</version>
+    </dependency>    
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>${org.apache.commons.dbcp.version}</version>
+    </dependency>    
 
     <!-- Spring context-->
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>4.1.6.RELEASE</version>
+        <version>${spring.version}</version>
     </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>4.1.6.RELEASE</version>
+        <version>${spring.version}</version>
     </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-        <version>4.1.6.RELEASE</version>
+        <version>${spring.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>    
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>        
     
     <!-- Spring security -->
     <dependency>
@@ -70,12 +116,9 @@
     </dependency>   
     
     
-    <!-- Spring MVC -->
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-	</dependency>     
+ 
+	
+	
 	    
   </dependencies>
 

@@ -1,3 +1,4 @@
+package org.bmsource.rest;
 // package org.bmsource;
 //
 // import org.glassfish.jersey.server.ResourceConfig;

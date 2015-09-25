@@ -1,4 +1,4 @@
-package org.bmsource;
+package org.bmsource.rest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
