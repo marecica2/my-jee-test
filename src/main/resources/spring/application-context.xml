@@ -13,7 +13,6 @@
 	<context:component-scan base-package="org.bmsource" />
 
 	<!-- JPA -->
-    <!-- JPA -->
 	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="jpaVendorAdapter">

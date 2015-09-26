@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/javascript.js"></script>
 </head>
 <body>
-	<p>Current Locale : ${pageContext.response.locale}</p>	
+	<p>Current Locale : ${pageContext.response.locale}</p>
 	<a href="?lang=sk"><fmt:message key="sk"/></a> | <a href="?lang=en"><fmt:message key="en"/></a> 
 	<br/>
 	<br/>
@@ -31,13 +31,24 @@
 						<input type="hidden" name="id" value="${book.id}">
 			        	<button type="submit">delete</button>
 		        	</form>
+		        	<a href="?edit=${book.id}">edit</a>
 		        </td> 
 		    </tr>
 		</c:forEach>
 	</table>
 	
-	<h3>Create Book</h3>
-	<form:form action="${pageContext.request.contextPath}/book/add" modelAttribute="bookForm">
+	<c:if test="${edit != null}">
+		<c:set var="action" scope="page" value="edit"/>
+		<h3>Edit Book</h3>
+	</c:if>	
+	<c:if test="${edit == null}">
+		<c:set var="action" scope="page" value="add"/>
+		<h3>Create Book</h3>
+	</c:if>	
+	<form:form action="${pageContext.request.contextPath}/book/${action}" modelAttribute="book">
+		<c:if test="${edit != null}">
+			<form:hidden path="id" />
+		</c:if>	
 		<div>
 			<form:input path="author"/><br/>
 			<form:errors path="author" cssClass="error"/>
@@ -51,6 +62,7 @@
 			<form:errors path="pages" cssClass="error"/>
 		</div>
 		<button type="submit">Submit</button>
+		<a href="?">Cancel</a>
 	</form:form>
 </body>
 </html>

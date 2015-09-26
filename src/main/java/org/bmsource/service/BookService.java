@@ -25,7 +25,7 @@ public class BookService {
 	}
 
 	public Book save(Book book) {
-		return bookDao.save(book);
+		return bookDao.create(book);
 	}
 
 	public Book update(Book book) {

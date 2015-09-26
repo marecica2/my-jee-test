@@ -1,31 +1,55 @@
-// package org.bmsource.dao;
-//
-// import java.io.Serializable;
-// import java.util.List;
-//
-// import javax.inject.Singleton;
-// import javax.persistence.EntityManager;
-// import javax.persistence.PersistenceContext;
-// import javax.transaction.Transactional;
-//
-// import org.springframework.stereotype.Component;
-//
-// @Transactional
-// @Singleton
-// @Component
-// public class GenericDao<T, ID extends Serializable> {
-//
-// protected Class<T> persistentClass;
-//
-// @PersistenceContext
-// private EntityManager entityManager;
-//
-// protected <T> List<T> _all(Class<T> type) {
-// return em.createQuery("select _it_ from " + getMetadataUtil().get(type).getEntityName() + " _it_").getResultList();
-// }
-// public T get(ID id) {
-// T t = entityManager.find(persistentClass, id);
-// return t;
-// }
-//
-// }
+package org.bmsource.dao;
+
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public abstract class GenericDao<T, ID extends Serializable> {
+
+	private Class<T> entityClass;
+
+	public abstract EntityManager getEntityManager();
+
+	@SuppressWarnings("unchecked")
+	public GenericDao() {
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+	}
+
+	@PostConstruct
+	public void init() {
+		System.out.println("GenericDao init");
+	}
+
+	public T create(T t) {
+		getEntityManager().persist(t);
+		return t;
+	}
+
+	public T find(ID id) {
+		return getEntityManager().find(entityClass, id);
+	}
+
+	public T update(T t) {
+		t = getEntityManager().merge(t);
+		return t;
+	}
+
+	public void delete(T t) {
+		t = getEntityManager().merge(t);
+		getEntityManager().remove(t);
+	}
+
+	public List<T> findAll() {
+		TypedQuery<T> q = getEntityManager().createQuery("from " + entityClass.getName(), entityClass);
+		return q.getResultList();
+	}
+
+}
