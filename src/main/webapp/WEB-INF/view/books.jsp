@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -12,10 +11,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/javascript.js"></script>
 </head>
 <body>
-	<p>Current Locale : ${pageContext.response.locale}</p>
-	<a href="?lang=sk"><fmt:message key="sk"/></a> | <a href="?lang=en"><fmt:message key="en"/></a> 
-	<br/>
-	<br/>
+	<%@ include file="menu.jsp" %>
+	
+	<h4>List of Books</h4>
 	<table class="search" border="1">
 	    <tr>
 	        <th><fmt:message key="book.title"/></th>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,12 @@ public abstract class GenericDao<T, ID extends Serializable> {
 
 	private Class<T> entityClass;
 
-	public abstract EntityManager getEntityManager();
+	@PersistenceContext
+	protected EntityManager entityManager;
+
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
+	}
 
 	@SuppressWarnings("unchecked")
 	public GenericDao() {

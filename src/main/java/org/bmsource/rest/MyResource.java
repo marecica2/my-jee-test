@@ -1,10 +1,10 @@
 package org.bmsource.rest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -14,6 +14,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+import org.bmsource.dao.UserDao;
+import org.bmsource.model.User;
+
 /**
  * Root resource (exposed at "myresource" path)
  */
@@ -22,6 +25,9 @@ public class MyResource {
 
 	@Context
 	SecurityContext securityContext;
+
+	@Inject
+	UserDao userDao;
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -46,9 +52,7 @@ public class MyResource {
 		System.err.println(securityContext);
 		System.err.println(securityContext.isSecure());
 
-		List<User> users = new ArrayList<>();
-		users.add(new User("Marek Balla", "marek.balla@gmail.com"));
-		users.add(new User("Dominika Sirotova", "dominikasir@gmail.com"));
+		List<User> users = userDao.findAll();
 		return Response.status(200).entity(users).build();
 	}
 }
