@@ -60,7 +60,7 @@
 			<form:errors path="pages" cssClass="error"/>
 		</div>
 		<button type="submit">Submit</button>
-		<a href="?">Cancel</a>
+		<a href="${pageContext.request.contextPath}/">Cancel</a>
 	</form:form>
 </body>
 </html>
