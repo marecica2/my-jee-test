@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.bmsource.model.Book;
 import org.bmsource.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BookController {
-	@Inject
+
+	@Autowired
 	SmartValidator validator;
 
 	@Inject

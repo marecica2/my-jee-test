@@ -2,6 +2,7 @@ package org.bmsource.dao;
 
 import java.util.List;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.TypedQuery;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Singleton
+@Named
 @Component
 public class UserDao extends GenericDao<User, Long> {
 
