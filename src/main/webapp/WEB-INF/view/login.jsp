@@ -7,6 +7,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
 	<title>Login</title>
 </head>
 <body>
@@ -22,6 +24,7 @@
 			<form:password path="password"/><br/>
 			<form:errors path="password" cssClass="error"/>
 		</div>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		
 		<button type="submit">Submit</button>
 		<a href="${pageContext.request.contextPath}/registration">Registration</a> |
