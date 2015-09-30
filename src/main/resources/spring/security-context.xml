@@ -9,16 +9,21 @@
       http://www.springframework.org/schema/security/spring-security.xsd">
 
   <security:http>
-    <security:intercept-url pattern="/**" access="hasRole('ROLE_REST')" />
-    <security:http-basic />
+    <security:intercept-url pattern="/login*" access="permitAll"/>
+	<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" /> 
+    <security:form-login login-page="/login" 
+    	password-parameter="password" 
+    	username-parameter="login" 
+    	default-target-url="/"
+    	authentication-failure-url="/login?auth=fail" 
+    	login-processing-url=""
+    />
+    <logout logout-url="/logout" logout-success-url="/" /> 
   </security:http>
 
+  <beans:bean  name="myAuthentificationProvider" class="org.bmsource.security.MyAuthentificationProvider"></beans:bean>
   <security:authentication-manager>
-    <security:authentication-provider>
-      <security:user-service>
-        <security:user name="rest" password="rest" authorities="ROLE_REST" />
-      </security:user-service>
-    </security:authentication-provider>
+	<security:authentication-provider  ref="myAuthentificationProvider" />
   </security:authentication-manager>
 
 </beans:beans>

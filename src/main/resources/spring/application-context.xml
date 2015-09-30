@@ -42,6 +42,6 @@
 	<!-- Spring MVC -->
 	<mvc:annotation-driven />
 
-	<!-- <import resource="security-context.xml"/> -->
+	<import resource="security-context.xml"/>
 
 </beans>

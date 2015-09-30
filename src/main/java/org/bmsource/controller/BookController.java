@@ -3,10 +3,10 @@ package org.bmsource.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.bmsource.model.Book;
 import org.bmsource.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -20,15 +20,21 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BookController {
 
-	@Autowired
+	@Inject
 	SmartValidator validator;
 
 	@Inject
 	BookService bookService;
 
+	@Inject
+	HttpServletRequest request;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
 		List<Book> books = bookService.getBooks();
+
+		System.err.println(request.getSession().getAttributeNames());
+		System.err.println(request.getRemoteUser());
 
 		model.put("books", books);
 		model.put("edit", edit);
@@ -39,6 +45,14 @@ public class BookController {
 			model.addAttribute(new Book());
 		}
 		return new ModelAndView("books", model);
+	}
+
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public ModelAndView admin(ModelMap model) {
+		List<Book> books = bookService.getBooks();
+		model.put("books", books);
+		model.put("edit", false);
+		return new ModelAndView("admin", model);
 	}
 
 	@RequestMapping(value = "/book/add", method = RequestMethod.POST)

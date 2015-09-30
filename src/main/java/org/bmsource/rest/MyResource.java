@@ -55,7 +55,6 @@ public class MyResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUsers(@QueryParam("param") String param) {
-		System.err.println(param);
 		System.err.println(securityContext);
 		System.err.println(securityContext.isSecure());
 
