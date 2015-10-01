@@ -7,6 +7,12 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
+  <!-- Spring MVC -->
+  
+  <mvc:annotation-driven />
+  <context:component-scan base-package="org.bmsource.controller" />
+
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">

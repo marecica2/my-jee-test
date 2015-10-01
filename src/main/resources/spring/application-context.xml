@@ -10,7 +10,9 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<context:property-placeholder location="classpath:application.properties" />
-	<context:component-scan base-package="org.bmsource" />
+	<context:component-scan base-package="org.bmsource" >
+      <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 
 	<!-- JPA -->
 	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -38,9 +40,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
     <tx:annotation-driven />	
-
-	<!-- Spring MVC -->
-	<mvc:annotation-driven />
 
 	<import resource="security-context.xml"/>
 
