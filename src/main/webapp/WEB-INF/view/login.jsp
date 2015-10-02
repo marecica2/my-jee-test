@@ -27,8 +27,7 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		
 		<button type="submit">Submit</button>
-		<a href="${pageContext.request.contextPath}/registration">Registration</a> |
-		<a href="${pageContext.request.contextPath}/">Cancel</a>
+		<a href="${pageContext.request.contextPath}/registration">Registration</a>
 	</form:form>
 </body>
 </html>

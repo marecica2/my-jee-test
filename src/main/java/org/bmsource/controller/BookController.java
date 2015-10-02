@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.bmsource.model.Book;
 import org.bmsource.service.BookService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+@PreAuthorize("isAuthenticated()")
 @Controller
 public class BookController {
 
@@ -29,6 +31,7 @@ public class BookController {
 	@Inject
 	HttpServletRequest request;
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
 		List<Book> books = bookService.getBooks();

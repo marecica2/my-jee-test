@@ -1,9 +1,11 @@
 package org.bmsource.controller;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.bmsource.dao.UserDao;
 import org.bmsource.model.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+@PreAuthorize("permitAll")
 @Controller
 public class UserController {
 	@Inject

@@ -27,6 +27,7 @@
 		        <td>
 		        	<form method="POST" action="${pageContext.request.contextPath}/book/delete">
 						<input type="hidden" name="id" value="${book.id}">
+			        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			        	<button type="submit">delete</button>
 		        	</form>
 		        	<a href="?edit=${book.id}">edit</a>
