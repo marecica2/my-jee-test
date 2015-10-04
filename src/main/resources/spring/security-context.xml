@@ -14,14 +14,9 @@
 	    <security:intercept-url pattern="/registration*" access="permitAll"/>
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" /> 
 	     -->
-		<security:form-login login-page="/login" 
-	  		password-parameter="password" 
-	  		username-parameter="login" 
-	  		default-target-url="/"
-	  		authentication-failure-url="/login?auth=fail" 
-	  		login-processing-url=""
-	  	/>
-		<logout logout-url="/logout" logout-success-url="/" /> 
+		<security:form-login login-page="/login" password-parameter="password" username-parameter="login" 
+	  		default-target-url="/" authentication-failure-url="/login?auth=fail" login-processing-url="" />
+		<security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID" /> 
   	</security:http>
 
   	<beans:bean  name="myAuthentificationProvider" class="org.bmsource.security.MyAuthentificationProvider"></beans:bean>

@@ -31,13 +31,10 @@ public class BookController {
 	@Inject
 	HttpServletRequest request;
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
 		List<Book> books = bookService.getBooks();
-
-		System.err.println(request.getSession().getAttributeNames());
-		System.err.println(request.getRemoteUser());
 
 		model.put("books", books);
 		model.put("edit", edit);

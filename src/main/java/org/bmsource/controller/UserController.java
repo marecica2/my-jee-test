@@ -1,7 +1,6 @@
 package org.bmsource.controller;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.bmsource.dao.UserDao;
 import org.bmsource.model.User;
@@ -67,9 +66,9 @@ public class UserController {
 		return new ModelAndView("redirect:/", model);
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(ModelMap model) {
-		session.setUser(null);
-		return new ModelAndView("redirect:/", model);
-	}
+	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	// public ModelAndView logout(ModelMap model, HttpServletRequest request) {
+	// session.setUser(null);
+	// return new ModelAndView("redirect:/logout-spring", model);
+	// }
 }
