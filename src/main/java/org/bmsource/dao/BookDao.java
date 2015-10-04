@@ -1,10 +1,11 @@
 package org.bmsource.dao;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.bmsource.model.Book;
+import org.bmsource.model.a.Book;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -12,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Named
 public class BookDao extends GenericDao<Book, Long> {
 
+	@PersistenceContext(unitName = "dataA")
+	protected EntityManager entityManager;
+
 	@Override
-	@PostConstruct
-	public void init() {
-		System.err.println("bookdao");
+	protected EntityManager getEntityManager() {
+		return entityManager;
 	}
 }

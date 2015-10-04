@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import org.bmsource.dao.UserDao;
-import org.bmsource.model.User;
+import org.bmsource.model.a.User;
 
 /**
  * Root resource (exposed at "myresource" path)

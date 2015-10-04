@@ -1,4 +1,4 @@
-package org.bmsource.model;
+package org.bmsource.model.a;
 
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;

@@ -1,4 +1,4 @@
-package org.bmsource.model;
+package org.bmsource.model.a;
 
 import java.io.Serializable;
 

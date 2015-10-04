@@ -14,9 +14,10 @@
       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
-	<!-- JPA -->
-	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
+	<!-- JPA A -->
+	<bean name="entityManagerFactoryA" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+		<property name="dataSource" ref="dataSourceA"/>
+		<property name="persistenceUnitName" value="dataA"/>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="databasePlatform" value="${jpa.platform}" />
@@ -24,9 +25,9 @@
 				<property name="showSql" value="${jpa.showSql}" />
 			</bean>
 		</property>
-		<property name="packagesToScan" value="org.bmsource.model" />
+		<property name="packagesToScan" value="org.bmsource.model.a" />
 	</bean>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSourceA" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
@@ -34,10 +35,36 @@
         <property name="initialSize" value="3" />
         <property name="maxActive" value="10" />
     </bean>
+    
+	<!-- JPA B -->
+    <bean name="entityManagerFactoryB" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+      <property name="dataSource" ref="dataSourceB"/>
+      <property name="persistenceUnitName" value="dataB"/>
+      <property name="jpaVendorAdapter">
+        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+          <property name="databasePlatform" value="${jpa.platform}" />
+          <property name="generateDdl" value="${jpa.generateDdl}" />        
+          <property name="showSql" value="${jpa.showSql}" />
+        </bean>
+      </property>
+      <property name="packagesToScan" value="org.bmsource.model.b" />
+    </bean>    
+    <bean id="dataSourceB" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.b.driver}"/>
+        <property name="url" value="${jdbc.b.url}"/>
+        <property name="username" value="${jdbc.b.username}"/>
+        <property name="password" value="${jdbc.b.password}"/>
+        <property name="initialSize" value="3" />
+        <property name="maxActive" value="10" />
+    </bean>
 
     <!-- Transactions -->
 	<bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="entityManagerFactory" ref="entityManagerFactoryA" />
+	</bean>
+	<bean name="transactionManagerB" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactoryB" />
+        <qualifier value="txb"></qualifier>
 	</bean>
     <tx:annotation-driven />	
 

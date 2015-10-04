@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.bmsource.model.Book;
+import org.bmsource.dao.GroupDao;
+import org.bmsource.model.a.Book;
+import org.bmsource.model.b.Group;
 import org.bmsource.service.BookService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,13 +31,21 @@ public class BookController {
 	BookService bookService;
 
 	@Inject
+	GroupDao groupDao;
+
+	@Inject
 	HttpServletRequest request;
 
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("permitAll")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView welcome(ModelMap model) {
+		return new ModelAndView("welcome", model);
+	}
+
+	@PreAuthorize("hasRole('ROLE_USER')")
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
 		List<Book> books = bookService.getBooks();
-
 		model.put("books", books);
 		model.put("edit", edit);
 		if (edit != null) {
@@ -57,39 +67,38 @@ public class BookController {
 
 	@RequestMapping(value = "/book/add", method = RequestMethod.POST)
 	public ModelAndView add(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-		System.err.println(book);
-
 		validator.validate(book, result);
-
 		if (result.hasErrors()) {
 			List<Book> books = bookService.getBooks();
 			model.put("books", books);
 			return new ModelAndView("books", model);
 		}
 		bookService.save(book);
-		return new ModelAndView("redirect:/", model);
+
+		Group g = new Group();
+		g.setName("Test");
+		groupDao.create(g);
+
+		return new ModelAndView("redirect:/books", model);
 	}
 
 	@RequestMapping(value = "/book/edit", method = RequestMethod.POST)
 	public ModelAndView edit(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
 		validator.validate(book, result);
-
 		if (result.hasErrors()) {
 			List<Book> books = bookService.getBooks();
 			model.put("books", books);
 			return new ModelAndView("books", model);
 		}
 		bookService.update(book);
-		return new ModelAndView("redirect:/", model);
+		return new ModelAndView("redirect:/books", model);
 	}
 
 	@RequestMapping(value = "/book/delete", method = RequestMethod.POST)
 	public ModelAndView delete(@ModelAttribute("id") Long id, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-		}
 		Book book = bookService.get(id);
 		bookService.delete(book);
-		return new ModelAndView("redirect:/", model);
+		return new ModelAndView("redirect:/books", model);
 	}
 
 }

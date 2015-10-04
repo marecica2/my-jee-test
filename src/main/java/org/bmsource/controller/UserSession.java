@@ -2,7 +2,7 @@ package org.bmsource.controller;
 
 import java.io.Serializable;
 
-import org.bmsource.model.User;
+import org.bmsource.model.a.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;

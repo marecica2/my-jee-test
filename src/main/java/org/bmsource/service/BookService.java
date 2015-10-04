@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.bmsource.dao.BookDao;
-import org.bmsource.model.Book;
+import org.bmsource.model.a.Book;
 import org.springframework.stereotype.Component;
 
 @Singleton

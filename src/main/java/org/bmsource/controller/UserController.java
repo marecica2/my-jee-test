@@ -3,7 +3,7 @@ package org.bmsource.controller;
 import javax.inject.Inject;
 
 import org.bmsource.dao.UserDao;
-import org.bmsource.model.User;
+import org.bmsource.model.a.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -66,9 +66,4 @@ public class UserController {
 		return new ModelAndView("redirect:/", model);
 	}
 
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	// public ModelAndView logout(ModelMap model, HttpServletRequest request) {
-	// session.setUser(null);
-	// return new ModelAndView("redirect:/logout-spring", model);
-	// }
 }

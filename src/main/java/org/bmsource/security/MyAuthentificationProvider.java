@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import org.bmsource.controller.UserSession;
 import org.bmsource.dao.UserDao;
-import org.bmsource.model.User;
+import org.bmsource.model.a.User;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
