@@ -14,12 +14,9 @@
       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
-	<!-- JPA A -->
-	<bean name="entityManagerFactoryA" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
-		<property name="dataSource" ref="dataSourceA"/>
-        <property name="persistenceXmlLocation">
-                <value>classpath*:persistence.xml</value>
-        </property>
+	<!-- JPA -->
+	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
 		<property name="persistenceUnitName" value="PersistenceUnitA"/>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -28,74 +25,22 @@
 				<property name="showSql" value="${jpa.showSql}" />
 			</bean>
 		</property>
-		<property name="packagesToScan" value="org.bmsource.model.a" />
+		<property name="packagesToScan" value="org.bmsource.model" />
 	</bean>
-    <bean id="dataSourceA" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-      <property name="uniqueResourceName"><value>DataSourceA</value></property>
-      <property name="xaDataSourceClassName"><value>org.postgresql.xa.PGXADataSource</value></property>
-      <property name="xaProperties">
-          <props>
-            <prop key="databaseName">my-jee-test</prop>
-            <prop key="serverName">localhost</prop>
-            <prop key="portNumber">6433</prop>
-            <prop key="user">postgres</prop>
-            <prop key="password">postgres</prop>
-          </props>
-      </property>
-      <property name="minPoolSize"><value>1</value></property>
-    </bean>
-  
-    
-	<!-- JPA B -->
-    <bean name="entityManagerFactoryB" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
-		<property name="dataSource" ref="dataSourceB"/>
-        <property name="persistenceXmlLocation">
-                <value>classpath*:persistence.xml</value>
-        </property>
-		<property name="persistenceUnitName" value="PersistenceUnitB"/>
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="databasePlatform" value="${jpa.platform}" />
-				<property name="generateDdl" value="${jpa.generateDdl}" />        
-				<property name="showSql" value="${jpa.showSql}" />
-			</bean>
-		</property>
-		<property name="packagesToScan" value="org.bmsource.model.a" />
-	</bean>
-    <bean id="dataSourceB" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
-      <property name="uniqueResourceName"><value>DataSourceB</value></property>
-      <property name="xaDataSourceClassName"><value>org.postgresql.xa.PGXADataSource</value></property>
-      <property name="xaProperties">
-          <props>
-            <prop key="databaseName">my-jee-test-b</prop>
-            <prop key="serverName">localhost</prop>
-            <prop key="portNumber">6433</prop>
-            <prop key="user">postgres</prop>
-            <prop key="password">postgres</prop>
-          </props>
-      </property>
-      <property name="minPoolSize"><value>1</value></property>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="3" />
+        <property name="maxActive" value="10" />
     </bean>
 
     <!-- Transactions -->
-	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init" destroy-method="close">
-		<property name="forceShutdown" value="false" />
+	<bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.J2eeUserTransaction">
-		<property name="transactionTimeout" value="300" />
-	</bean>
-	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"
-		depends-on="atomikosTransactionManager,atomikosUserTransaction">
-		<property name="transactionManager" ref="atomikosTransactionManager" />
-		<property name="userTransaction" ref="atomikosUserTransaction" />
-		<property name="allowCustomIsolationLevels" value="true" />
-	</bean>
-  
-	<tx:annotation-driven />
-	<tx:jta-transaction-manager />
-
-
-
+    <tx:annotation-driven />	
 
 	<import resource="security-context.xml"/>
 
