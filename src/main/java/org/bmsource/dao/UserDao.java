@@ -10,15 +10,13 @@ import javax.persistence.TypedQuery;
 
 import org.bmsource.model.a.User;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @Singleton
 @Named
 @Component
 public class UserDao extends GenericDao<User, Long> {
 
-	@PersistenceContext(unitName = "PersistenceUnitA")
+	@PersistenceContext(unitName = "emfA")
 	protected EntityManager entityManager;
 
 	public User getByLogin(String login) {

@@ -33,6 +33,7 @@ public abstract class GenericDao<T, ID extends Serializable> {
 		return t;
 	}
 
+	@Transactional(readOnly = true)
 	public T find(ID id) {
 		return getEntityManager().find(entityClass, id);
 	}
@@ -47,6 +48,7 @@ public abstract class GenericDao<T, ID extends Serializable> {
 		getEntityManager().remove(t);
 	}
 
+	@Transactional(readOnly = true)
 	public List<T> findAll() {
 		TypedQuery<T> q = getEntityManager().createQuery("from " + entityClass.getName(), entityClass);
 		return q.getResultList();

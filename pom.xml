@@ -12,9 +12,9 @@
     <spring.security.version>4.0.1.RELEASE</spring.security.version>
     <jersey.version>2.21</jersey.version>
     <org.hibernate.javax.persistence.jpa.2.version>1.0.0.Final</org.hibernate.javax.persistence.jpa.2.version>
-    <org.hibernate.version>4.3.6.Final</org.hibernate.version>  
+    <org.hibernate.version>3.6.2.Final</org.hibernate.version>  
     <org.apache.commons.dbcp.version>1.4</org.apache.commons.dbcp.version>
-    <atomikos.version>3.8.0</atomikos.version>
+    <atomikos.version>3.9.3</atomikos.version>
   </properties>
 
   <!-- Jersey -->

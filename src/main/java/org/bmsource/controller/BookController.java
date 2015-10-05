@@ -52,7 +52,9 @@ public class BookController {
 			Book book = bookService.get(edit);
 			model.addAttribute(book);
 		} else {
-			model.addAttribute(new Book());
+			Book book = new Book();
+			book.setPages(10);
+			model.addAttribute(book);
 		}
 		return new ModelAndView("books", model);
 	}

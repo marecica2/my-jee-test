@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Named
 public class BookDao extends GenericDao<Book, Long> {
 
-	@PersistenceContext(unitName = "PersistenceUnitA")
+	@PersistenceContext(unitName = "emfA")
 	protected EntityManager entityManager;
 
 	@Override
