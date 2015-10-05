@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class AuthorDao extends GenericDao<Author, Long> {
 
-	@PersistenceContext(unitName = "dataA")
+	@PersistenceContext(unitName = "PersistenceUnitA")
 	protected EntityManager entityManager;
 
 	@Override

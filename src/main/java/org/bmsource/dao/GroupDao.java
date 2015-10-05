@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Named
 public class GroupDao extends GenericDao<Group, Long> {
 
-	@PersistenceContext(unitName = "dataB")
+	@PersistenceContext(unitName = "PersistenceUnitB")
 	protected EntityManager entityManager;
 
 	@Override

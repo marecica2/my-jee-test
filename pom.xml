@@ -14,6 +14,7 @@
     <org.hibernate.javax.persistence.jpa.2.version>1.0.0.Final</org.hibernate.javax.persistence.jpa.2.version>
     <org.hibernate.version>4.3.6.Final</org.hibernate.version>  
     <org.apache.commons.dbcp.version>1.4</org.apache.commons.dbcp.version>
+    <atomikos.version>3.8.0</atomikos.version>
   </properties>
 
   <!-- Jersey -->
@@ -142,7 +143,29 @@
     </dependency>   
     
     
- 
+    <!-- JTA -->
+  <dependency>
+    <groupId>com.atomikos</groupId>
+    <artifactId>transactions-jta</artifactId>
+    <version>${atomikos.version}</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.atomikos</groupId>
+    <artifactId>transactions-jdbc</artifactId>
+    <version>${atomikos.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>com.atomikos</groupId>
+    <artifactId>transactions-hibernate3</artifactId>
+    <version>${atomikos.version}</version>
+    <exclusions>
+      <exclusion>
+        <artifactId>hibernate</artifactId>
+        <groupId>org.hibernate</groupId>
+      </exclusion>
+    </exclusions>
+  </dependency>    
 	
 	
 	    

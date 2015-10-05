@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class UserDao extends GenericDao<User, Long> {
 
-	@PersistenceContext(unitName = "dataA")
+	@PersistenceContext(unitName = "PersistenceUnitA")
 	protected EntityManager entityManager;
 
 	public User getByLogin(String login) {
