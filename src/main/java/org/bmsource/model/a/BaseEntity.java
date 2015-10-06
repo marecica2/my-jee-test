@@ -7,10 +7,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseEntity {
 
-	private Long id;
-
 	@Id
 	@GeneratedValue
+	private Long id;
+
 	public Long getId() {
 		return id;
 	}

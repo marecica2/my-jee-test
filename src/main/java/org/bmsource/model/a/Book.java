@@ -1,6 +1,11 @@
 package org.bmsource.model.a;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +15,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @XmlRootElement
 public class Book extends BaseEntity {
+	@XmlElement
+	private BookType bookType;
 
 	@NotEmpty
 	@XmlElement
@@ -23,6 +30,10 @@ public class Book extends BaseEntity {
 	@XmlElement
 	private int pages;
 
+	@ManyToMany
+	@JoinTable(name = "book_author", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "author_id") })
+	private Set<Author> authors;
+
 	public Book() {
 		super();
 	}
@@ -32,6 +43,22 @@ public class Book extends BaseEntity {
 		this.title = title;
 		this.author = author;
 		this.pages = pages;
+	}
+
+	public BookType getBookType() {
+		return bookType;
+	}
+
+	public void setBookType(BookType bookType) {
+		this.bookType = bookType;
+	}
+
+	public Set<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
 	}
 
 	public String getTitle() {

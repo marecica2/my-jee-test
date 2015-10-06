@@ -21,7 +21,7 @@ public class BookService {
 	}
 
 	public Book get(Long id) {
-		return bookDao.find(id);
+		return bookDao.findEager(id);
 	}
 
 	public Book save(Book book) {

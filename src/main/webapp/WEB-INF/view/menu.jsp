@@ -4,6 +4,8 @@
 <div>
 	<h4>Book store <a href="?lang=sk"><fmt:message key="sk"/></a> | <a href="?lang=en"><fmt:message key="en"/></a> </h4>
 	<a href="${pageContext.request.contextPath}/">Home</a> | 
+	<a href="${pageContext.request.contextPath}/books">Books</a> | 
+	<a href="${pageContext.request.contextPath}/authors">Authors</a> | 
 	<c:if test="${userSession.user == null}">
 		<a href="${pageContext.request.contextPath}/login">Login</a>  
 	</c:if>

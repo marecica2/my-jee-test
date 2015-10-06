@@ -18,12 +18,14 @@
 	    <tr>
 	        <th><fmt:message key="book.title"/></th>
 	        <th><fmt:message key="book.author"/></th>
+	        <th>Genre</th>
 	        <th></th>
 	    </tr>
 		<c:forEach var="book" items="${books}" varStatus="status">
 		    <tr>
 		        <td>${book.title}</td> 
 		        <td>${book.author}</td> 
+		        <td>${book.bookType}</td> 
 		        <td>
 		        	<form method="POST" action="${pageContext.request.contextPath}/book/delete">
 						<input type="hidden" name="id" value="${book.id}">
@@ -48,6 +50,15 @@
 		<c:if test="${edit != null}">
 			<form:hidden path="id" />
 		</c:if>	
+		<div>
+			<form:select path="bookType">
+				<form:option value="FICTION">Fiction</form:option>
+				<form:option value="NOVEL">Novel</form:option>
+				<form:option value="POETRY">Poetry</form:option>
+			</form:select>
+			<br/>
+			<form:errors path="bookType" cssClass="error"/>
+		</div>
 		<div>
 			<form:input path="author"/><br/>
 			<form:errors path="author" cssClass="error"/>

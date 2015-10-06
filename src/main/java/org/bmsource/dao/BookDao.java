@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.bmsource.model.a.Book;
+import org.hibernate.Hibernate;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -19,5 +20,11 @@ public class BookDao extends GenericDao<Book, Long> {
 	@Override
 	protected EntityManager getEntityManager() {
 		return entityManager;
+	}
+
+	public Book findEager(Long id) {
+		Book book = getEntityManager().find(Book.class, id);
+		Hibernate.initialize(book.getAuthors());
+		return book;
 	}
 }

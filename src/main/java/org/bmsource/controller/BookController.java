@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Book;
+import org.bmsource.model.a.BookType;
 import org.bmsource.model.b.Group;
 import org.bmsource.service.BookService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,7 +53,10 @@ public class BookController {
 			Book book = bookService.get(edit);
 			model.addAttribute(book);
 		} else {
-			model.addAttribute(new Book());
+			Book book = new Book();
+			book.setPages(10);
+			book.setBookType(BookType.POETRY);
+			model.addAttribute(book);
 		}
 		return new ModelAndView("books", model);
 	}
