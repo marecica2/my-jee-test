@@ -3,6 +3,8 @@ package org.bmsource.model.a;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -16,6 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 public class Book extends BaseEntity {
 	@XmlElement
+	@Enumerated(EnumType.STRING)
 	private BookType bookType;
 
 	@NotEmpty

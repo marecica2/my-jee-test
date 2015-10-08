@@ -21,6 +21,11 @@ public class AuthorService {
 		return authors;
 	}
 
+	public List<Author> getFiltered(Author filter) {
+		List<Author> authors = authorDao.getFiltered(filter);
+		return authors;
+	}
+
 	public Author get(Long id) {
 		return authorDao.findEager(id);
 	}

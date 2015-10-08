@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,6 +13,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @XmlRootElement
 public class Author extends BaseEntity {
+
+	@Version
+	Long version;
 
 	@NotEmpty
 	@XmlElement
@@ -50,6 +54,14 @@ public class Author extends BaseEntity {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	@Override

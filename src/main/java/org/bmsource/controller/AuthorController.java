@@ -56,6 +56,10 @@ public class AuthorController {
 			Author author = new Author();
 			model.addAttribute(author);
 		}
+		Author filter = new Author();
+		filter.setFirstName("Marek");
+		List<Author> filtered = authorService.getFiltered(filter);
+		System.err.println(filtered);
 		return new ModelAndView("authors", model);
 	}
 
@@ -72,13 +76,16 @@ public class AuthorController {
 	}
 
 	@RequestMapping(value = "/author/edit", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute("author") Author author, BindingResult result, ModelMap model) {
-		validator.validate(author, result);
+	public ModelAndView edit(@ModelAttribute("author") Author authorForm, BindingResult result, ModelMap model) {
+		validator.validate(authorForm, result);
 		if (result.hasErrors()) {
 			List<Author> authors = authorService.getAuthors();
 			model.put("authors", authors);
 			return new ModelAndView("authors", model);
 		}
+		Author author = authorService.get(authorForm.getId());
+		author.setFirstName(authorForm.getFirstName());
+		author.setLastName(authorForm.getLastName());
 		authorService.update(author);
 		return new ModelAndView("redirect:/authors", model);
 	}

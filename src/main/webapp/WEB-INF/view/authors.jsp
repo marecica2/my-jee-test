@@ -56,8 +56,6 @@
 			<form:input path="lastName"/><br/>
 			<form:errors path="lastName" cssClass="error"/>
 		</div>
-		
-		
 		<button type="submit">Submit</button>
 		<a href="${pageContext.request.contextPath}/">Cancel</a>
 	</form:form>
