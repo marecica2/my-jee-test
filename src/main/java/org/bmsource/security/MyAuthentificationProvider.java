@@ -3,12 +3,12 @@ package org.bmsource.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.bmsource.controller.UserSession;
 import org.bmsource.dao.UserDao;
 import org.bmsource.model.a.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,10 +28,10 @@ public class MyAuthentificationProvider implements AuthenticationProvider {
 		AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
-	@Inject
+	@Autowired
 	UserDao userDao;
 
-	@Inject
+	@Autowired
 	UserSession session;
 
 	@Override
