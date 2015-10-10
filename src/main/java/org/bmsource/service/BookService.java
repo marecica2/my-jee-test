@@ -8,10 +8,13 @@ import javax.inject.Singleton;
 import org.bmsource.dao.BookDao;
 import org.bmsource.model.a.Book;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Singleton
 @Component
+@Transactional
 public class BookService {
+
 	@Inject
 	BookDao bookDao;
 

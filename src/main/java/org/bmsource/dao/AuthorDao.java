@@ -14,9 +14,7 @@ import javax.persistence.criteria.Root;
 import org.bmsource.model.a.Author;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 @Singleton
 @Component
 public class AuthorDao extends GenericDao<Author, Long> {

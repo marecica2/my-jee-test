@@ -8,9 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.springframework.transaction.annotation.Transactional;
-
-@Transactional
 public abstract class GenericDao<T, ID extends Serializable> {
 
 	private Class<T> entityClass;

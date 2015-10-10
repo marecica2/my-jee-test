@@ -20,9 +20,21 @@
 	
 
 	<!-- JPA -->
-	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml"/> 
+	<bean name="entityManagerFactory1" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence1.xml"/> 
         <property name="persistenceUnitName" value="PersistenceUnitA" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${jpa.platform}" />
+				<property name="generateDdl" value="${jpa.generateDdl}" />        
+				<property name="showSql" value="${jpa.showSql}" />
+			</bean>
+		</property>
+		<property name="packagesToScan" value="org.bmsource.model" />
+	</bean>
+	<bean name="entityManagerFactory2" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence2.xml"/> 
+        <property name="persistenceUnitName" value="PersistenceUnitB" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="databasePlatform" value="${jpa.platform}" />

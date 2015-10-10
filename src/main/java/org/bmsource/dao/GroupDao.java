@@ -1,19 +1,17 @@
 package org.bmsource.dao;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.bmsource.model.b.Group;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-@Transactional
 @Singleton
-@Named
+@Component
 public class GroupDao extends GenericDao<Group, Long> {
 
-	@PersistenceContext(unitName = "PersistenceUnitA")
+	@PersistenceContext(unitName = "PersistenceUnitB")
 	protected EntityManager entityManager;
 
 	@Override

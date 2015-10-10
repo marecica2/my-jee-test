@@ -6,15 +6,22 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.bmsource.dao.AuthorDao;
+import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Author;
+import org.bmsource.model.b.Group;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Singleton
 @Component
+@Transactional
 public class AuthorService {
 
 	@Inject
 	AuthorDao authorDao;
+
+	@Inject
+	GroupDao groupDao;
 
 	public List<Author> getAuthors() {
 		List<Author> authors = authorDao.findAll();
@@ -31,7 +38,12 @@ public class AuthorService {
 	}
 
 	public Author save(Author author) {
-		return authorDao.create(author);
+		Group g = new Group();
+		g.setName("new");
+		g = groupDao.create(g);
+
+		Author create = authorDao.create(author);
+		return create;
 	}
 
 	public Author update(Author author) {

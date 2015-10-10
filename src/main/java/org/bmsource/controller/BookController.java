@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BookController {
 
-	// @Inject
-	// Validator validator;
+	@Inject
+	Validator validator;
 
 	@Inject
 	BookService bookService;
@@ -70,7 +71,7 @@ public class BookController {
 
 	@RequestMapping(value = "/book/add", method = RequestMethod.POST)
 	public ModelAndView add(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-		// validator.validate(book, result);
+		validator.validate(book, result);
 		if (result.hasErrors()) {
 			List<Book> books = bookService.getBooks();
 			model.put("books", books);
@@ -87,7 +88,7 @@ public class BookController {
 
 	@RequestMapping(value = "/book/edit", method = RequestMethod.POST)
 	public ModelAndView edit(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-		// validator.validate(book, result);
+		validator.validate(book, result);
 		if (result.hasErrors()) {
 			List<Book> books = bookService.getBooks();
 			model.put("books", books);

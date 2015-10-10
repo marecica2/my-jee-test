@@ -1,17 +1,15 @@
 package org.bmsource.dao;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.bmsource.model.a.Book;
 import org.hibernate.Hibernate;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
-@Transactional
 @Singleton
-@Named
+@Component
 public class BookDao extends GenericDao<Book, Long> {
 
 	@PersistenceContext(unitName = "PersistenceUnitA")
