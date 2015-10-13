@@ -10,6 +10,5 @@ public class MyApplication extends ResourceConfig {
 		packages("org.bmsource.rest");
 		register(MyResource.class);
 		register(JacksonJsonProvider.class);
-
 	}
 }
