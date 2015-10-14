@@ -48,7 +48,7 @@
     <!-- Transactions -->
 	<bean name="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
 	</bean>
-    <tx:annotation-driven />	
+    <tx:annotation-driven  />	
     
 	 
 	<import resource="security-context.xml"/>
