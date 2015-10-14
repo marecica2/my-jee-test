@@ -69,6 +69,12 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>${org.apache.commons.dbcp.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.jbossts</groupId>
+			<artifactId>jbossjta</artifactId>
+			<version>4.16.6.Final</version>
+		</dependency>
+		
 
 		<!-- Validation -->
 		<dependency>
