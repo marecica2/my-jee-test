@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,7 +17,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-public class Book extends BaseEntity {
+public class Book extends BaseEntity<Book> {
+	@Version
+	private Long version;
+
 	@XmlElement
 	@Enumerated(EnumType.STRING)
 	private BookType bookType;
@@ -86,6 +90,14 @@ public class Book extends BaseEntity {
 
 	public void setPages(int pages) {
 		this.pages = pages;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	@Override

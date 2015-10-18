@@ -2,8 +2,8 @@ package org.bmsource.controller;
 
 import javax.inject.Inject;
 
-import org.bmsource.dao.UserDao;
-import org.bmsource.model.a.User;
+import org.bmsource.model.b.User;
+import org.bmsource.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +23,7 @@ public class UserController {
 	Validator validator;
 
 	@Inject
-	UserDao userDao;
+	UserService userService;
 
 	@Inject
 	UserSession session;
@@ -44,7 +44,7 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(@ModelAttribute("user") User user, BindingResult result, ModelMap model) {
-		User usr = userDao.getByLogin(user.getLogin());
+		User usr = userService.getByLogin(user.getLogin());
 		if (usr == null) {
 			result.addError(new FieldError("user", "login", "User does not exists"));
 		} else if (!usr.getPassword().equals(user.getPassword())) {
@@ -63,7 +63,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			return new ModelAndView("registration", model);
 		}
-		userDao.create(user);
+		userService.save(user);
 		return new ModelAndView("redirect:/", model);
 	}
 

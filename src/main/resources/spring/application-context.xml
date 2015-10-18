@@ -21,7 +21,7 @@
 
 	<!-- JPA -->
 	<bean name="entityManagerFactory1" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence1.xml"/> 
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence1.xml"/> 
         <property name="persistenceUnitName" value="PersistenceUnitA" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -33,7 +33,7 @@
 		<property name="packagesToScan" value="org.bmsource.model" />
 	</bean>
 	<bean name="entityManagerFactory2" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence2.xml"/> 
+        <property name="persistenceXmlLocation" value="classpath*:META-INF/persistence2.xml"/> 
         <property name="persistenceUnitName" value="PersistenceUnitB" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -44,10 +44,9 @@
 		</property>
 		<property name="packagesToScan" value="org.bmsource.model" />
 	</bean>
-	<bean name="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
-	</bean>
-    <tx:annotation-driven  />	
-    
+    <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+    <tx:annotation-driven transaction-manager="txManager" />
+    <tx:jta-transaction-manager />
     
     <!-- JPA local managed -->
     <!-- 

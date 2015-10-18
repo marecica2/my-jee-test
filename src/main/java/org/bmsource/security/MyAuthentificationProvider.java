@@ -6,8 +6,8 @@ import java.util.List;
 import javax.inject.Singleton;
 
 import org.bmsource.controller.UserSession;
-import org.bmsource.dao.UserDao;
-import org.bmsource.model.a.User;
+import org.bmsource.model.b.User;
+import org.bmsource.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,14 +29,14 @@ public class MyAuthentificationProvider implements AuthenticationProvider {
 	}
 
 	@Autowired
-	UserDao userDao;
+	UserService userService;
 
 	@Autowired
 	UserSession session;
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
-		User usr = userDao.getByLogin(auth.getName());
+		User usr = userService.getByLogin(auth.getName());
 		if (usr == null) {
 			throw new BadCredentialsException("Bad Credentials");
 		} else if (!usr.getPassword().equals(auth.getCredentials())) {

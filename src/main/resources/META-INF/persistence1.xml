@@ -2,12 +2,11 @@
 <persistence version="2.1"
   xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  
   <persistence-unit name="PersistenceUnitA" transaction-type="JTA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>java:/jdbc/jee1</jta-data-source>
     <class>org.bmsource.model.a.Author</class>
     <class>org.bmsource.model.a.Book</class>
-    <class>org.bmsource.model.a.User</class>
     <properties>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.JBossAppServerJtaPlatform" />
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

@@ -7,7 +7,7 @@ import org.bmsource.model.a.BaseEntity;
 
 @Entity
 @Table(name = "\"group\"")
-public class Group extends BaseEntity {
+public class Group extends BaseEntity<Group> {
 
 	private String name;
 

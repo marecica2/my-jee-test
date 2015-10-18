@@ -1,33 +1,28 @@
 package org.bmsource.dao;
 
-import java.util.List;
-
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
-import org.bmsource.model.a.User;
+import org.bmsource.model.b.User;
 import org.springframework.stereotype.Component;
 
 @Singleton
 @Component
 public class UserDao extends GenericDao<User, Long> {
 
-	@PersistenceContext(unitName = "PersistenceUnitA")
+	@PersistenceContext(unitName = "PersistenceUnitB")
 	protected EntityManager entityManager;
 
 	public User getByLogin(String login) {
-		TypedQuery<User> q = entityManager.createQuery("from User where login = :login", User.class);
-		q.setParameter("login", login);
-		List<User> users = q.getResultList();
-		if (users.size() > 0)
-			return users.get(0);
-		return null;
+		User filter = new User();
+		filter.setLogin(login);
+		User u = filterSingle(filter);
+		return u;
 	}
 
 	@Override
-	protected EntityManager getEntityManager() {
+	protected EntityManager em() {
 		return entityManager;
 	}
 

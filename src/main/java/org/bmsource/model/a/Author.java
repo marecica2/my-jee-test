@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-public class Author extends BaseEntity {
+public class Author extends BaseEntity<Author> {
 
 	@Version
 	Long version;

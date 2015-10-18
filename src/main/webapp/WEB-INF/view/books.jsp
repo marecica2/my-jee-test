@@ -12,8 +12,13 @@
 </head>
 <body>
 	<%@ include file="menu.jsp" %>
-	
 	<h4>List of Books</h4>
+	<c:if test="${info != null}">
+		<h3>${info}</h3>
+	</c:if>		
+	<c:if test="${error != null}">
+		<h3>${error}</h3>
+	</c:if>		
 	<table class="search" border="1">
 	    <tr>
 	        <th><fmt:message key="book.title"/></th>
@@ -32,7 +37,7 @@
 			        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			        	<button type="submit">delete</button>
 		        	</form>
-		        	<a href="?edit=${book.id}">edit</a>
+		        	<a href="${pageContext.request.contextPath}/books?edit=${book.id}">edit</a>
 		        </td> 
 		    </tr>
 		</c:forEach>
@@ -43,12 +48,13 @@
 		<h3>Edit Book</h3>
 	</c:if>	
 	<c:if test="${edit == null}">
-		<c:set var="action" scope="page" value="add"/>
+		<c:set var="action" scope="page" value="save"/>
 		<h3>Create Book</h3>
 	</c:if>	
 	<form:form action="${pageContext.request.contextPath}/book/${action}" modelAttribute="book">
 		<c:if test="${edit != null}">
 			<form:hidden path="id" />
+			<form:hidden path="version" />
 		</c:if>	
 		<div>
 			<form:select path="bookType">
@@ -60,13 +66,15 @@
 			<form:errors path="bookType" cssClass="error"/>
 		</div>
 		<div>
-			<form:input path="author"/><br/>
+			<form:input path="author" placeholder="author" /><br/>
 			<form:errors path="author" cssClass="error"/>
 		</div>
+		<br/>
 		<div>
-			<form:input path="title"/><br/>
+			<form:input path="title" placeholder="title"/><br/>
 			<form:errors path="title" cssClass="error"/>
 		</div>
+		<br/>
 		<div>
 			<form:input path="pages"/><br/>
 			<form:errors path="pages" cssClass="error"/>

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import org.bmsource.dao.GroupDao;
 import org.bmsource.model.b.Group;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Singleton
@@ -27,12 +28,13 @@ public class GroupService {
 		return groupDao.find(id);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = { RuntimeException.class })
 	public Group save(Group group) {
-		return groupDao.create(group);
-	}
-
-	public Group update(Group group) {
-		return groupDao.update(group);
+		group = groupDao.save(group);
+		boolean tr = true;
+		if (tr)
+			throw new RuntimeException();
+		return group;
 	}
 
 	public void delete(Group group) {

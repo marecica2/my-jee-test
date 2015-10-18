@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 import org.bmsource.dao.AuthorDao;
 import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Author;
-import org.bmsource.model.b.Group;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,7 @@ public class AuthorService {
 	}
 
 	public List<Author> getFiltered(Author filter) {
-		List<Author> authors = authorDao.getFiltered(filter);
+		List<Author> authors = authorDao.filterList(filter);
 		return authors;
 	}
 
@@ -38,16 +37,8 @@ public class AuthorService {
 	}
 
 	public Author save(Author author) {
-		Group g = new Group();
-		g.setName("new");
-		g = groupDao.create(g);
-
-		Author create = authorDao.create(author);
+		Author create = authorDao.save(author);
 		return create;
-	}
-
-	public Author update(Author author) {
-		return authorDao.update(author);
 	}
 
 	public void delete(Author author) {

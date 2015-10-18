@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Book;
 import org.bmsource.model.a.BookType;
 import org.bmsource.model.b.Group;
@@ -16,10 +15,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @PreAuthorize("isAuthenticated()")
 @Controller
@@ -32,9 +33,6 @@ public class BookController {
 	BookService bookService;
 
 	@Inject
-	GroupDao groupDao;
-
-	@Inject
 	HttpServletRequest request;
 
 	@PreAuthorize("permitAll")
@@ -43,9 +41,17 @@ public class BookController {
 		return new ModelAndView("welcome", model);
 	}
 
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public ModelAndView admin(ModelMap model) {
+		List<Book> books = bookService.getBooks();
+		model.put("books", books);
+		model.put("edit", false);
+		return new ModelAndView("admin", model);
+	}
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
+	public ModelAndView books(@RequestParam(value = "edit", required = false) Long edit, ModelMap model, RedirectAttributes redirectAttributes) {
 		List<Book> books = bookService.getBooks();
 		model.put("books", books);
 		model.put("edit", edit);
@@ -61,41 +67,33 @@ public class BookController {
 		return new ModelAndView("books", model);
 	}
 
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView admin(ModelMap model) {
-		List<Book> books = bookService.getBooks();
-		model.put("books", books);
-		model.put("edit", false);
-		return new ModelAndView("admin", model);
-	}
-
-	@RequestMapping(value = "/book/add", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-		validator.validate(book, result);
+	@RequestMapping(value = "/book/{action}", method = RequestMethod.POST)
+	public ModelAndView save(@PathVariable String action, @ModelAttribute("book") Book bookForm,
+			BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) {
+		validator.validate(bookForm, result);
+		bookService.validate(result);
 		if (result.hasErrors()) {
 			List<Book> books = bookService.getBooks();
 			model.put("books", books);
 			return new ModelAndView("books", model);
 		}
-		bookService.save(book);
+		try {
 
-		Group g = new Group();
-		g.setName("Test");
-		groupDao.create(g);
-
-		return new ModelAndView("redirect:/books", model);
-	}
-
-	@RequestMapping(value = "/book/edit", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-		validator.validate(book, result);
-		if (result.hasErrors()) {
-			List<Book> books = bookService.getBooks();
-			model.put("books", books);
-			return new ModelAndView("books", model);
+			if (action.equals("save")) {
+				Group g = new Group();
+				g.setName(System.currentTimeMillis() + "");
+				bookService.save(bookForm, g);
+			}
+			if (action.equals("edit")) {
+				bookService.update(bookForm);
+			}
+			redirectAttributes.addFlashAttribute("info", "Save success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("error", "Error occured" + e.getMessage());
 		}
-		bookService.update(book);
-		return new ModelAndView("redirect:/books", model);
+		ModelAndView modelAndView = new ModelAndView("redirect:/books");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/book/delete", method = RequestMethod.POST)

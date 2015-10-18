@@ -18,7 +18,7 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.bmsource.dao.UserDao;
 import org.bmsource.model.a.Author;
-import org.bmsource.model.a.User;
+import org.bmsource.model.b.User;
 import org.bmsource.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 

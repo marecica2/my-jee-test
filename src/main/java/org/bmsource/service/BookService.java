@@ -5,10 +5,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.bmsource.controller.UserSession;
 import org.bmsource.dao.BookDao;
 import org.bmsource.model.a.Book;
+import org.bmsource.model.b.Group;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.validation.BindingResult;
 
 @Singleton
 @Component
@@ -18,24 +23,59 @@ public class BookService {
 	@Inject
 	BookDao bookDao;
 
+	@Inject
+	UserSession us;
+
+	@Inject
+	GroupService groupService;
+
+	@Inject
+	private PlatformTransactionManager transactionManager;
+
+	final TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+
 	public List<Book> getBooks() {
 		List<Book> books = bookDao.findAll();
 		return books;
 	}
 
 	public Book get(Long id) {
-		return bookDao.findEager(id);
+		return bookDao.findLock(id);
 	}
 
-	public Book save(Book book) {
-		return bookDao.create(book);
+	public Book save(Book book, Group group) {
+		groupService.save(group);
+		return bookDao.save(book);
+	}
+
+	public Book updateLock(Book book) {
+		// User user = us.getUser();
+		// if (user.getLogin().equals("x")) {
+		// try {
+		// Thread.sleep(6000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
+		// }
+		return update(book);
 	}
 
 	public Book update(Book book) {
-		return bookDao.update(book);
+		book = bookDao.save(book);
+		return book;
+	}
+
+	public Book save(Book book) {
+		book = bookDao.save(book);
+		return book;
 	}
 
 	public void delete(Book book) {
 		bookDao.delete(book);
+	}
+
+	public BindingResult validate(BindingResult errors) {
+		// errors.addError(new FieldError("book", "title", "sasasasa"));
+		return errors;
 	}
 }

@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class GroupDao extends GenericDao<Group, Long> {
 
-	@PersistenceContext(unitName = "PersistenceUnitA")
+	@PersistenceContext(unitName = "PersistenceUnitB")
 	protected EntityManager entityManager;
 
 	@Override
-	public EntityManager getEntityManager() {
+	public EntityManager em() {
 		return entityManager;
 	}
 

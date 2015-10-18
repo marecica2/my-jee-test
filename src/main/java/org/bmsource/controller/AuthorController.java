@@ -86,7 +86,7 @@ public class AuthorController {
 		Author author = authorService.get(authorForm.getId());
 		author.setFirstName(authorForm.getFirstName());
 		author.setLastName(authorForm.getLastName());
-		authorService.update(author);
+		authorService.save(author);
 		return new ModelAndView("redirect:/authors", model);
 	}
 
@@ -103,8 +103,8 @@ public class AuthorController {
 		Book book = bookService.get(bookId);
 		author.getBooks().add(book);
 		book.getAuthors().add(author);
-		authorService.update(author);
-		bookService.update(book);
+		authorService.save(author);
+		bookService.save(book);
 		return new ModelAndView("redirect:/authors", model);
 	}
 

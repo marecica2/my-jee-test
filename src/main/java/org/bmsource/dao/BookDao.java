@@ -2,6 +2,7 @@ package org.bmsource.dao;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 
 import org.bmsource.model.a.Book;
@@ -16,12 +17,12 @@ public class BookDao extends GenericDao<Book, Long> {
 	protected EntityManager entityManager;
 
 	@Override
-	protected EntityManager getEntityManager() {
+	protected EntityManager em() {
 		return entityManager;
 	}
 
-	public Book findEager(Long id) {
-		Book book = getEntityManager().find(Book.class, id);
+	public Book findLock(Long id) {
+		Book book = em().find(Book.class, id, LockModeType.OPTIMISTIC);
 		Hibernate.initialize(book.getAuthors());
 		return book;
 	}

@@ -1,4 +1,4 @@
-package org.bmsource.model.a;
+package org.bmsource.model.b;
 
 import java.io.Serializable;
 
@@ -8,12 +8,13 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bmsource.model.a.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
 @Table(name = "\"user\"")
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity<User> implements Serializable {
 
 	private static final long serialVersionUID = -5286799114334868506L;
 
@@ -73,4 +74,8 @@ public class User extends BaseEntity implements Serializable {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", login=" + login + "]";
+	}
 }

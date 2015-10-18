@@ -11,7 +11,7 @@
 		<spring.security.version>4.0.1.RELEASE</spring.security.version>
 		<jersey.version>2.21</jersey.version>
 		<org.hibernate.javax.persistence.jpa.2.version>1.0.0.Final</org.hibernate.javax.persistence.jpa.2.version>
-		<org.hibernate.version>4.3.5.Final</org.hibernate.version>
+		<org.hibernate.version>5.0.2.Final</org.hibernate.version>
 		<org.apache.commons.dbcp.version>1.4</org.apache.commons.dbcp.version>
 	</properties>
 
@@ -69,11 +69,13 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>${org.apache.commons.dbcp.version}</version>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.jboss.jbossts</groupId>
 			<artifactId>jbossjta</artifactId>
 			<version>4.16.6.Final</version>
 		</dependency>
+		 -->
 		
 
 		<!-- Validation -->
@@ -132,7 +134,11 @@
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+            <version>1.2.4.RELEASE</version>
+        </dependency>
 
 		<!-- Spring security -->
 		<dependency>
