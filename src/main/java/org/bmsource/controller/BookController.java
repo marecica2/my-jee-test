@@ -90,7 +90,7 @@ public class BookController {
 			redirectAttributes.addFlashAttribute("info", "Save success");
 		} catch (Exception e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("error", "Error occured" + e.getMessage());
+			redirectAttributes.addFlashAttribute("error", "Error occured" + e.getClass());
 		}
 		ModelAndView modelAndView = new ModelAndView("redirect:/books");
 		return modelAndView;

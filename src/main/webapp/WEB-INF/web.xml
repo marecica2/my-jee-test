@@ -30,67 +30,55 @@
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>  
-	
-	
-	
+	</servlet-mapping>
 
-  <!-- spring security -->
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>  
-  
-  <!-- jersey -->
-  <!-- 
-  <servlet>
-      <servlet-name>jersey</servlet-name>
-      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-      <init-param>
-          <param-name>jersey.config.server.provider.packages</param-name>
-          <param-value>org.bmsource</param-value>
-      </init-param>
-      <init-param>
-          <param-name>jersey.config.server.provider.classnames</param-name>
-          <param-value>com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider</param-value>
-      </init-param>      
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>jersey</servlet-name>
-    <url-pattern>/rest/*</url-pattern>
-  </servlet-mapping>
-   -->
-  
-  <!-- jersey alternative -->
-  <servlet>
-      <servlet-name>jersey2</servlet-name>
-      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-      <init-param>
-          <param-name>javax.ws.rs.Application</param-name>
-          <param-value>org.bmsource.rest.MyApplication</param-value>
-      </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>jersey2</servlet-name>
-    <url-pattern>/rest/*</url-pattern>
-  </servlet-mapping>
-  
-  <resource-ref>
-    <description>MySQL DS</description>
-    <res-ref-name>jdbc/DataSourceA</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/error</location>
+	</error-page>
 
-  <resource-ref>
-    <description>MySQL DS</description>
-    <res-ref-name>jdbc/DataSourceB</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>  
+
+	<!-- spring security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- jersey -->
+	<!-- <servlet> <servlet-name>jersey</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> <init-param> <param-name>jersey.config.server.provider.packages</param-name> 
+		<param-value>org.bmsource</param-value> </init-param> <init-param> <param-name>jersey.config.server.provider.classnames</param-name> <param-value>com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider</param-value> 
+		</init-param> </servlet> <servlet-mapping> <servlet-name>jersey</servlet-name> <url-pattern>/rest/*</url-pattern> </servlet-mapping> -->
+
+	<!-- jersey alternative -->
+	<servlet>
+		<servlet-name>jersey2</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>org.bmsource.rest.MyApplication</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey2</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<resource-ref>
+		<description>MySQL DS</description>
+		<res-ref-name>jdbc/DataSourceA</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<resource-ref>
+		<description>MySQL DS</description>
+		<res-ref-name>jdbc/DataSourceB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>  
   
 </web-app>

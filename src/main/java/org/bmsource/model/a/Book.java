@@ -12,8 +12,11 @@ import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @XmlRootElement
@@ -37,6 +40,8 @@ public class Book extends BaseEntity<Book> {
 	@XmlElement
 	private int pages;
 
+	@XmlTransient
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "book_author", joinColumns = { @JoinColumn(name = "book_id") }, inverseJoinColumns = { @JoinColumn(name = "author_id") })
 	private Set<Author> authors;

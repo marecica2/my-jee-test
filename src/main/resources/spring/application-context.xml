@@ -123,5 +123,6 @@
 			<property name="paramName" value="lang"></property>
 		</bean>
 	</mvc:interceptors>	
+	
 
 </beans>

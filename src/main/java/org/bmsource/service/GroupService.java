@@ -28,7 +28,7 @@ public class GroupService {
 		return groupDao.find(id);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = { RuntimeException.class })
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Group save(Group group) {
 		group = groupDao.save(group);
 		boolean tr = true;
