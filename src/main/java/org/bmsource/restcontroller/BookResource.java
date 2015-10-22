@@ -1,6 +1,6 @@
 package org.bmsource.restcontroller;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +10,7 @@ import org.bmsource.model.a.Book;
 import org.bmsource.service.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +27,19 @@ public class BookResource {
 	@Inject
 	HttpServletRequest request;
 
+	@Inject
+	HttpInvokerProxyFactoryBean remote;
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public ResponseEntity<List<Book>> books() throws Exception {
-		List<Book> books = bookService.getBooks();
-		boolean t = true;
-		if (t == true)
-			throw new IOException("Error accessing dao");
+	public ResponseEntity<List<Book>> books() {
+		List<Book> books = new ArrayList<>();
+		try {
+			BookService bs = (BookService) remote.getObject();
+			books = bs.getBooks();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return new ResponseEntity<>(books, HttpStatus.OK);
 	}
 

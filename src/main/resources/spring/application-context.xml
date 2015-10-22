@@ -122,7 +122,19 @@
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<property name="paramName" value="lang"></property>
 		</bean>
-	</mvc:interceptors>	
+	</mvc:interceptors>
 	
+	
+	<!-- messaging -->
+	<bean name="bookService" class="org.bmsource.service.BookServiceImpl"></bean>
+	<bean name="bookExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+	    <property name="service" ref="bookService"/>
+	    <property name="serviceInterface" value="org.bmsource.service.BookService"/>
+	</bean>		
+
+	<bean id="httpInvokerProxy" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+	    <property name="serviceUrl" value="http://localhost:8080/my-jee-test/remoting/BookService"/>
+	    <property name="serviceInterface" value="org.bmsource.service.BookService"/>
+	</bean>
 
 </beans>

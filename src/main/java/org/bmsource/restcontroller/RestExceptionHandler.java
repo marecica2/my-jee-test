@@ -1,36 +1,36 @@
 package org.bmsource.restcontroller;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = { "org.bmsource.restcontroller" })
 public class RestExceptionHandler {
 
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = IOException.class)
-	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("exception", e);
-		mav.addObject("url", req.getRequestURL());
-		mav.setViewName("error");
-		return mav;
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = RuntimeException.class)
+	public ResponseEntity<String> defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+		JSONObject json = new JSONObject();
+		json.put("statusCode", HttpStatus.INTERNAL_SERVER_ERROR);
+		json.put("exception", e.getClass().getName());
+		json.put("message", e.getMessage());
+		return new ResponseEntity<>(json.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
 	@ExceptionHandler(value = Exception.class)
-	public String unauthorizedErrorHandler(HttpServletRequest req, HttpServletResponse resp, Exception e) throws Exception {
-		String header = req.getHeader("Accept");
-		String ct = req.getHeader("Content-type");
-		RequestDispatcher dispatch = req.getRequestDispatcher(req.getRequestURI().substring(req.getContextPath().length()));
-		return "redirect:/view/login.jsp";
+	@ResponseBody
+	public ResponseEntity<String> unauthorizedErrorHandler(HttpServletRequest req, HttpServletResponse resp, Exception e) throws Exception {
+		JSONObject json = new JSONObject();
+		json.put("statusCode", HttpStatus.UNAUTHORIZED);
+		json.put("message", "Unauthorized access");
+		return new ResponseEntity<>(json.toString(), HttpStatus.UNAUTHORIZED);
 	}
 }

@@ -9,16 +9,21 @@
 	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>	 
   	<security:http use-expressions="true">
 	    <security:intercept-url pattern="/login*" access="permitAll"/>
+	    <security:intercept-url pattern="/remoting/**" access="permitAll"/>
+	    <security:intercept-url pattern="/remoting**" access="permitAll"/>
 	    <security:intercept-url pattern="/" access="permitAll"/>
+	    
 		<security:intercept-url pattern="/rest/**" access="hasRole('ROLE_USER')" /> 
-		<security:form-login login-page="/login" password-parameter="password" username-parameter="login" 
-	  		default-target-url="/" authentication-failure-url="/login?auth=fail" login-processing-url="" />
+		<security:form-login login-page="/login" password-parameter="password" username-parameter="login" default-target-url="/" authentication-failure-url="/login?auth=fail" login-processing-url="" />
 		<security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID" /> 
+		<security:http-basic/>
+		<security:csrf disabled="true"/>
   	</security:http>
 
   	<beans:bean  name="myAuthentificationProvider" class="org.bmsource.security.MyAuthentificationProvider"></beans:bean>
 	<security:authentication-manager>
 		<security:authentication-provider  ref="myAuthentificationProvider" />
 	</security:authentication-manager>
-
+	
+	
 </beans:beans>

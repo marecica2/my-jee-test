@@ -1,5 +1,6 @@
 package org.bmsource.model.a;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,7 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @XmlRootElement
-public class Book extends BaseEntity<Book> {
+public class Book extends BaseEntity<Book> implements Serializable {
+	private static final long serialVersionUID = 8053527447319338293L;
+
 	@Version
 	private Long version;
 

@@ -1,5 +1,6 @@
 package org.bmsource.model.a;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,7 +13,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-public class Author extends BaseEntity<Author> {
+public class Author extends BaseEntity<Author> implements Serializable {
+
+	private static final long serialVersionUID = 1432697298389184917L;
 
 	@Version
 	Long version;

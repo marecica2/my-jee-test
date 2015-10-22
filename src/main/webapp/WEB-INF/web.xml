@@ -15,6 +15,17 @@
                 org.springframework.web.context.request.RequestContextListener 
         </listener-class>
     </listener>	
+    
+    
+    <!-- remoting -->
+	<servlet>
+	    <servlet-name>bookExporter</servlet-name>
+	    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>bookExporter</servlet-name>
+	    <url-pattern>/remoting/BookService</url-pattern>
+	</servlet-mapping>    
   
 
   	<!-- spring mvc -->
@@ -31,12 +42,6 @@
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
-	<error-page>
-		<error-code>401</error-code>
-		<location>/error</location>
-	</error-page>
-
 
 	<!-- spring security -->
 	<filter>
