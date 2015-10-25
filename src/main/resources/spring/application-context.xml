@@ -136,5 +136,12 @@
 	    <property name="serviceUrl" value="http://localhost:8080/my-jee-test/remoting/BookService"/>
 	    <property name="serviceInterface" value="org.bmsource.service.BookService"/>
 	</bean>
+	
+	
+	<!-- SOAP -->
+	<bean class="org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
+	    <property name="baseAddress" value="http://localhost:18080/"/>
+	</bean>	
+	<bean id="accountServiceEndpoint" class="org.bmsource.restcontroller.BookWsResource" />
 
 </beans>

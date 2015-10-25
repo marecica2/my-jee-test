@@ -52,6 +52,39 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+		
+	<filter>
+	    <filter-name>OpenEntityManagerInViewFilter</filter-name>
+	    <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	    <init-param>
+	        <param-name>entityManagerFactoryBeanName</param-name>
+	        <param-value>entityManagerFactory1</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>flushMode</param-name>
+	        <param-value>AUTO</param-value>
+	    </init-param>
+	</filter>
+    <filter-mapping>
+    	<filter-name>OpenEntityManagerInViewFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+  	</filter-mapping>	
+	<filter>
+	    <filter-name>OpenEntityManagerInViewFilter2</filter-name>
+	    <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	    <init-param>
+	        <param-name>entityManagerFactoryBeanName</param-name>
+	        <param-value>entityManagerFactory2</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>flushMode</param-name>
+	        <param-value>AUTO</param-value>
+	    </init-param>
+	</filter>
+    <filter-mapping>
+    	<filter-name>OpenEntityManagerInViewFilter2</filter-name>
+    	<url-pattern>/*</url-pattern>
+  	</filter-mapping>	
 
 	<!-- jersey -->
 	<!-- <servlet> <servlet-name>jersey</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> <init-param> <param-name>jersey.config.server.provider.packages</param-name> 

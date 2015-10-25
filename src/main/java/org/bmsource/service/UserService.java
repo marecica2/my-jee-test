@@ -7,11 +7,11 @@ import javax.inject.Singleton;
 
 import org.bmsource.dao.UserDao;
 import org.bmsource.model.b.User;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Singleton
-@Component
+@Service
 @Transactional
 public class UserService {
 

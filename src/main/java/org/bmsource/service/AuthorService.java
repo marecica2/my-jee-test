@@ -8,11 +8,11 @@ import javax.inject.Singleton;
 import org.bmsource.dao.AuthorDao;
 import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Author;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Singleton
-@Component
+@Service
 @Transactional
 public class AuthorService {
 

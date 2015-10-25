@@ -5,11 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.bmsource.dao.GroupDao;
 import org.bmsource.model.a.Author;
 import org.bmsource.model.a.Book;
 import org.bmsource.service.AuthorService;
 import org.bmsource.service.BookService;
+import org.bmsource.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,14 +29,14 @@ public class AuthorController {
 	@Inject
 	Validator validator;
 
-	@Inject
+	@Autowired
 	AuthorService authorService;
 
-	@Inject
+	@Autowired
 	BookService bookService;
 
-	@Inject
-	GroupDao groupDao;
+	@Autowired
+	GroupService groupService;
 
 	@Inject
 	HttpServletRequest request;
@@ -44,6 +45,9 @@ public class AuthorController {
 	@RequestMapping(value = "/authors", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "edit", required = false) Long edit, ModelMap model) {
 		List<Author> authors = authorService.getAuthors();
+		for (Author author : authors) {
+			System.err.println(author.getBooks());
+		}
 		List<Book> books = bookService.getBooks();
 		model.put("authors", authors);
 		model.put("books", books);

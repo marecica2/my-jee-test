@@ -9,14 +9,14 @@ import org.bmsource.controller.UserSession;
 import org.bmsource.dao.BookDao;
 import org.bmsource.model.a.Book;
 import org.bmsource.model.b.Group;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.validation.BindingResult;
 
 @Singleton
-@Component
+@Service
 @Transactional
 public class BookServiceImpl implements BookService {
 
